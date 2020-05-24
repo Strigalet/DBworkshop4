@@ -1,16 +1,16 @@
-CREATE OR REPLACE FUNCTION countSolvedProblemsByCountryAndByYear (
+CREATE OR REPLACE FUNCTION HigherAvgMarkByYearAndCountry (
     par_year        participation.year%TYPE,
     par_countryname   participant.countryname%TYPE
 ) RETURN INT
 AS
-    var INT;
+    counter INT;
 BEGIN 
-    SELECT COUNT(mark) 
-    INTO var 
+    SELECT COUNT(average_mark) 
+    INTO counter 
     FROM Country_Mark_By_Year 
     WHERE year = par_year AND
           countryname = par_countryname AND
-          mark = 7;
+          average_mark >= 4;
 
-    RETURN var;
+    RETURN counter;
 END;
