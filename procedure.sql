@@ -30,7 +30,13 @@ CREATE OR REPLACE PROCEDURE Add_Participant_Solution (
 
 
     		IF (var_participant_id = 1)  and (var_problem_id = 1) THEN
-    			INSERT INTO solution (solution, participant_id, problem_id, mark) VALUES (par_solution, par_participant_id, par_problem_id, par_mark);
+    		   UPDATE Solution
+		   	SET
+			   solution = par_solution
+			WHERE
+			   participant_id = par_participant_id
+			   AND
+			   problem_id = par_problem_id;
 
     		ELSE
     			RAISE not_found;
