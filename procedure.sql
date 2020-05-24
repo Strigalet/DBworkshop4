@@ -10,8 +10,8 @@ CREATE OR REPLACE PROCEDURE Add_Participant_Solution (
 	
 		par_participant_id Participant.participant_id%TYPE,
 		par_problem_id Problem.problem_id%TYPE,
-		par_solution Solution.solution%TYPE,
-		par_mark INT
+		par_solution Solution.solution%TYPE
+
     )
 	AS 
 		var_participant_id Participant.participant_id%TYPE;
