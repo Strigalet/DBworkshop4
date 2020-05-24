@@ -47,6 +47,8 @@ CREATE TABLE solution (
     mark            INT NOT NULL
 );
 
+ALTER TABLE solution ADD CHECK ( mark <= 7  and mark >= 0 );
+
 ALTER TABLE participant
     ADD CONSTRAINT participant_country_fk FOREIGN KEY ( countryname )
         REFERENCES country ( countryname );
