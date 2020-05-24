@@ -21,6 +21,8 @@ INSERT INTO problem (problem_id, year) VALUES (1, 1991);
 INSERT INTO problem (problem_id, year) VALUES (2, 1991);
 INSERT INTO problem (problem_id, year) VALUES (3, 2012);
 INSERT INTO problem (problem_id, year) VALUES (4, 2012);
+INSERT INTO problem (problem_id, year) VALUES (5, 1991);
+INSERT INTO problem (problem_id, year) VALUES (6, 2012);
 
 INSERT INTO solution ( participant_id, problem_id, solution, mark) VALUES (1, 1, 'solution1', 5);
 INSERT INTO solution ( participant_id, problem_id, solution, mark) VALUES (1, 2, 'solution2', 7);
