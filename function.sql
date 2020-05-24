@@ -5,7 +5,7 @@ CREATE TYPE AveragePeople IS OBJECT (
     );
 /
 CREATE TYPE TableAveragePeople IS
-        TABLE OF rowprojects;
+        TABLE OF AveragePeople;
 /
 CREATE OR REPLACE FUNCTION Participants_Avg_Mark_By_Year_And_Country (
         par_year    NUMBER(4,0),
