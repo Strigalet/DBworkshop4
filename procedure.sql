@@ -16,7 +16,7 @@ CREATE OR REPLACE PROCEDURE Add_Participant_Solution (
 	AS 
 		var_participant_id Participant.participant_id%TYPE;
 		var_problem_id Problem.problem_id%TYPE;
-		problem_or_participant_not_found EXCEPTION;
+		not_found EXCEPTION;
     
 	BEGIN
 		
@@ -33,12 +33,12 @@ CREATE OR REPLACE PROCEDURE Add_Participant_Solution (
     			INSERT INTO solution (solution, participant_id, problem_id, mark) VALUES (par_solution, par_participant_id, par_problem_id, par_mark);
 
     		ELSE
-    			RAISE problem_or_participant_not_found;
+    			RAISE not_found;
     		
     		END IF;
 
     		EXCEPTION
-    			WHEN problem_or_participant_not_found THEN
+    			WHEN not_found THEN
     				dbms_output.put_line('Participant or problem not found');
 
 END;
