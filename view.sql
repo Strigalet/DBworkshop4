@@ -1,11 +1,13 @@
-CREATE OR REPLACE VIEW Country_Mark_By_Year AS
+CREATE OR REPLACE VIEW Participants_Avg_Mark AS
 SELECT
-   countryname,
-   sum(mark)/count(mark) average_mark,
-   year
-FROM Participant 
-		JOIN Solution ON 
-			Participant.participant_id = Solution.participant_id
-		JOIN Participation ON
-			Participant.participant_id = Participation.participant_id
-GROUP BY countryname, year;
+        firstname,
+        lastname,
+        countryname,
+        year,
+        SUM(mark)/COUNT(mark) avg_mark
+    FROM
+        Participant 
+        JOIN Solution ON participant.participant_id = solution.participant_id
+        JOIN Participation ON participant.participant_id = participation.participant_id
+        
+GROUP BY firstname, lastname,countryname,year
