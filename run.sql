@@ -24,6 +24,7 @@ BEGIN
     Add_Participant_Solution(1,1,'solevar');
     Add_Participant_Solution(2,2,'solenko');
     
+    dbms_output.put_line(' ');
     dbms_output.put_line('AFTER:');
     FOR record IN Participant_Solution
      LOOP
@@ -31,8 +32,13 @@ BEGIN
         DBMS_OUTPUT.put_line('Participant_id - ' || record.participant_id || ' | Problem_id - ' || record.problem_id || ' | Solution - ' || record.solution);
      END LOOP;
      
-     counter := HigherAvgMarkByYearAndCountry(1991,'RUS');
-     dbms_output.put_line('Result - ' || counter);
+     Add_Participant_Solution(15,2,'yareshil');  	--Participant not found
+     Add_Participant_Solution(2,15,'solutionenko');	--Problem not found
+     
+     dbms_output.put_line(' ');
+     dbms_output.put_line('Function Result:');
+     SELECT * FROM TABLE(Participants_Avg_Mark_By_Year_And_Country(1991,'RUS'))
+     SELECT * FROM TABLE(Participants_Avg_Mark_By_Year_And_Country(2012,'USA'))
      
         
 END;
