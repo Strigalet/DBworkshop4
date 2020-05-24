@@ -1,5 +1,17 @@
 CREATE OR REPLACE PACKAGE Database IS
-
+    TYPE AveragePeople IS RECORD (
+        firstname      participant.firstname%TYPE,
+        lastname   participant.lastname%TYPE,
+        avg_mark  INT
+    );
+    TYPE TableAveragePeople IS
+        TABLE OF AveragePeople;
+--
+    FUNCTION Participants_Avg_Mark_By_Year_And_Country (
+        par_year    INT,
+        par_countryname    VARCHAR
+    ) RETURN TableAveragePeople
+        PIPELINED;
 
     PROCEDURE Add_Participant_Solution (
     
@@ -9,37 +21,14 @@ CREATE OR REPLACE PACKAGE Database IS
         par_mark INT
     );
 
-    FUNCTION HigherAvgMarkByYearAndCountry (
-    par_year        participation.year%TYPE,
-    par_countryname   participant.countryname%TYPE
-    ) RETURN INT;
-
-    
-
 END Database;
 
 /
 
-CREATE OR REPLACE PACKAGE BODY Database  IS
 
-    FUNCTION HigherAvgMarkByYearAndCountry (
-        par_year        participation.year%TYPE,
-        par_countryname   participant.countryname%TYPE
-    ) RETURN INT
-    AS
-         counter INT;
-    BEGIN 
-        SELECT COUNT(average_mark) 
-        INTO counter 
-        FROM Country_Mark_By_Year 
-        WHERE year = par_year AND
-              countryname = par_countryname AND
-              average_mark >= 4;
+CREATE OR REPLACE PACKAGE BODY Database IS
 
-        RETURN counter;
-    END;
-    
-    PROCEDURE Add_Participant_Solution (
+PROCEDURE Add_Participant_Solution (
     
         par_participant_id Participant.participant_id%TYPE,
         par_problem_id Problem.problem_id%TYPE,
@@ -63,7 +52,13 @@ CREATE OR REPLACE PACKAGE BODY Database  IS
 
 
             IF (var_participant_id = 1)  and (var_problem_id = 1) THEN
-                INSERT INTO solution (solution, participant_id, problem_id, mark) VALUES (par_solution, par_participant_id, par_problem_id, par_mark);
+               UPDATE Solution
+            SET
+               solution = par_solution
+            WHERE
+               participant_id = par_participant_id
+               AND
+               problem_id = par_problem_id;
 
             ELSE
                 RAISE not_found;
@@ -76,5 +71,31 @@ CREATE OR REPLACE PACKAGE BODY Database  IS
 
 END;
 
-END Database;
-/
+
+FUNCTION Participants_Avg_Mark_By_Year_And_Country (
+        par_year    INT,
+        par_countryname    VARCHAR
+    ) RETURN TableAveragePeople
+        PIPELINED
+    IS
+
+        CURSOR curs IS
+        (SELECT
+            firstname,
+            lastname,
+            avg_mark
+        FROM
+            Participants_Avg_Mark
+        WHERE
+            countryname = par_countryname
+            AND year = par_year);
+    my_rec AveragePeople;
+    BEGIN
+        FOR rec IN curs 
+        LOOP
+            my_rec.firstname := rec.firstname;
+            my_rec.lastname := rec.lastname;
+            my_rec.avg_mark := rec.avg_mark;
+            PIPE ROW ( my_rec );
+        END LOOP;
+    END;
