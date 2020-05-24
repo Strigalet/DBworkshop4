@@ -21,54 +21,54 @@ CREATE TABLE participant (
     participant_id       NUMBER(6) NOT NULL,
     firstname            VARCHAR2(255 CHAR),
     lastname             VARCHAR2(255 CHAR),
-    country_countryname  VARCHAR2(35 CHAR) NOT NULL
+    countryname          VARCHAR2(35 CHAR) NOT NULL
 );
 
 ALTER TABLE participant ADD CONSTRAINT participant_pk PRIMARY KEY ( participant_id );
 
 CREATE TABLE participation (
-    participant_participant_id  NUMBER(6) NOT NULL,
-    olympiad_year               NUMBER(4) NOT NULL
+    participant_id  NUMBER(6) NOT NULL,
+    year               NUMBER(4) NOT NULL
 );
 
-ALTER TABLE participation ADD CONSTRAINT relation_14_pk PRIMARY KEY ( participant_participant_id,
-                                                                      olympiad_year );
+ALTER TABLE participation ADD CONSTRAINT participation_pk PRIMARY KEY ( participant_id, year );
 
 CREATE TABLE problem (
     problem_id     NUMBER(4) NOT NULL,
-    olympiad_year  NUMBER(4) NOT NULL
+    year  NUMBER(4) NOT NULL
 );
 
 ALTER TABLE problem ADD CONSTRAINT problem_pk PRIMARY KEY ( problem_id );
 
 CREATE TABLE solution (
-    solution                    VARCHAR2(35) NOT NULL,
-    participant_participant_id  NUMBER(6) NOT NULL,
-    problem_problem_id          NUMBER(4) NOT NULL
+    solution        VARCHAR2(35) NOT NULL,
+    participant_id  NUMBER(6) NOT NULL,
+    problem_id      NUMBER(4) NOT NULL,
+    mark            INT NOT NULL
 );
 
 ALTER TABLE participant
-    ADD CONSTRAINT participant_country_fk FOREIGN KEY ( country_countryname )
+    ADD CONSTRAINT participant_country_fk FOREIGN KEY ( countryname )
         REFERENCES country ( countryname );
 
 ALTER TABLE problem
-    ADD CONSTRAINT problem_olympiad_fk FOREIGN KEY ( olympiad_year )
+    ADD CONSTRAINT problem_olympiad_fk FOREIGN KEY ( year )
         REFERENCES olympiad ( year );
 
 ALTER TABLE participation
-    ADD CONSTRAINT relation_14_olympiad_fk FOREIGN KEY ( olympiad_year )
+    ADD CONSTRAINT participation_olympiad_fk FOREIGN KEY ( year )
         REFERENCES olympiad ( year );
 
 ALTER TABLE participation
-    ADD CONSTRAINT relation_14_participant_fk FOREIGN KEY ( participant_participant_id )
+    ADD CONSTRAINT participation_participant_fk FOREIGN KEY ( participant_id )
         REFERENCES participant ( participant_id );
 
 ALTER TABLE solution
-    ADD CONSTRAINT solution_participant_fk FOREIGN KEY ( participant_participant_id )
+    ADD CONSTRAINT solution_participant_fk FOREIGN KEY ( participant_id )
         REFERENCES participant ( participant_id );
 
 ALTER TABLE solution
-    ADD CONSTRAINT solution_problem_fk FOREIGN KEY ( problem_problem_id )
+    ADD CONSTRAINT solution_problem_fk FOREIGN KEY ( problem_id )
         REFERENCES problem ( problem_id );
 
 
