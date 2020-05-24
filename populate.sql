@@ -5,6 +5,7 @@ INSERT INTO country (countryname) VALUES ('USA');
 
 INSERT INTO olympiad (year) VALUES (1991);
 INSERT INTO olympiad (year) VALUES (2012);
+INSERT INTO olympiad (year) VALUES (2032);
 
 
 INSERT INTO participant (participant_id, firstname, lastname, countryname) VALUES (1, 'Ilya', 'Pivcaev', 'RUS');
