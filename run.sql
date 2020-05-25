@@ -1,6 +1,6 @@
 SET SERVEROUTPUT ON;
 
-
+DECLARE
 CURSOR Participant_Solution
 IS
     SELECT
@@ -32,8 +32,8 @@ BEGIN
      
      dbms_output.put_line(' ');
      dbms_output.put_line('Function Result:');
-     SELECT * FROM TABLE(Participants_Avg_Mark_By_Year_And_Country(1991,'RUS'))
-     SELECT * FROM TABLE(Participants_Avg_Mark_By_Year_And_Country(2012,'USA'))
+     SELECT * FROM TABLE(my_package.GetAvgMark(1991,'RUS'));
+     SELECT * FROM TABLE(my_package.GetAvgMark(2012,'USA'));
      
      
      dbms_output.put_line(' ');
