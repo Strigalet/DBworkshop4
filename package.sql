@@ -1,8 +1,8 @@
 CREATE OR REPLACE PACKAGE Database IS
     TYPE AveragePeople IS RECORD (
-        firstname      participant.firstname%TYPE,
-        lastname   participant.lastname%TYPE,
-        avg_mark  INT
+        firstname   participant.firstname%TYPE,
+        lastname    participant.lastname%TYPE,
+        avg_mark    Participants_Avg_Mark.avg_mark%TYPE
     );
     TYPE TableAveragePeople IS
         TABLE OF AveragePeople;
