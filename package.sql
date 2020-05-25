@@ -98,3 +98,4 @@ FUNCTION GetAvgMark (
             PIPE ROW ( my_rec );
         END LOOP;
     END;
+END;
