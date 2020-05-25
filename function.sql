@@ -1,7 +1,7 @@
 CREATE TYPE AveragePeople IS OBJECT (
-        firstname   VARCHAR(85),
-        lastname    VARCHAR(85),
-        avg_mark    INT
+        firstname   participant.firstname%TYPE,
+        lastname    participant.lastname%TYPE,
+        avg_mark    Participants_Avg_Mark.avg_mark%TYPE
     );
 /
 CREATE TYPE TableAveragePeople IS
