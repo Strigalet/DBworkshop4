@@ -7,7 +7,7 @@ CREATE OR REPLACE PACKAGE Database IS
     TYPE TableAveragePeople IS
         TABLE OF AveragePeople;
 --
-    FUNCTION Participants_Avg_Mark_By_Year_And_Country (
+    FUNCTION GetAvgMark (
         par_year    INT,
         par_countryname    VARCHAR
     ) RETURN TableAveragePeople
@@ -71,7 +71,7 @@ PROCEDURE Add_Participant_Solution (
 END;
 
 
-FUNCTION Participants_Avg_Mark_By_Year_And_Country (
+FUNCTION GetAvgMark (
         par_year    INT,
         par_countryname    VARCHAR
     ) RETURN TableAveragePeople
